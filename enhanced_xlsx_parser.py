@@ -179,7 +179,9 @@ class EnhancedXLSXParser:
 
         # Look for header rows by checking for rows with mostly non-empty cells followed by data rows
         header_candidates = []
-        for row in range(1, min(20, max_row)):  # Check first 20 rows at most
+        # Check a portion of rows, with a minimum of 20 and a maximum of 50, or 10% of total rows.
+        rows_to_check_for_header = min(max(20, max_row // 10), max_row, 50)
+        for row in range(1, rows_to_check_for_header + 1):
             non_empty_count = 0
             empty_count = 0
 
